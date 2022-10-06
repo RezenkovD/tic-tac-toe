@@ -24,6 +24,20 @@ namespace GameAccount
             public string UserName { get; }
             public int GamesCount { get; }
 
+            public int GameIndex
+            {
+                get
+                {
+                    int gameIndex = 0;
+                    foreach (var item in allRatingCalculations)
+                    {
+                        gameIndex += item.GameIndex;
+                    }
+
+                    return gameIndex;
+                }
+            }
+
             public int CurrentRating
             {
                 get
@@ -37,15 +51,15 @@ namespace GameAccount
                 }
             }
 
-            public void GameStart(int rating, string status)
+            public void GameStart(int rating, string status, int gameIndex)
             {
-                var startGame = new RatingCalculation(rating, status, "Game start");
+                var startGame = new RatingCalculation(rating, status, "Game start", gameIndex);
                 allRatingCalculations.Add(startGame);
             }
 
             public void WinGame(string opponentName, int rating)
             {
-                var winGame = new RatingCalculation(rating, "Game won", opponentName);
+                var winGame = new RatingCalculation(rating, "Game won", opponentName, 1);
                 allRatingCalculations.Add(winGame);
             }
 
@@ -55,7 +69,7 @@ namespace GameAccount
                 {
                     throw new InvalidOperationException("The rating cannot be less than 1");
                 }
-                var loseGame = new RatingCalculation(-rating, "Game lost", opponentName);
+                var loseGame = new RatingCalculation(-rating, "Game lost", opponentName, 1);
                 allRatingCalculations.Add(loseGame);
             }
 
@@ -64,11 +78,13 @@ namespace GameAccount
                 var report = new System.Text.StringBuilder();
 
                 int currentRating = 100;
-                report.AppendLine("UserName\tCurrentRating\tStatus\t\tOpponentName\tRating");
+                int gameIndex = 0;
+                report.AppendLine("UserName\tCurrentRating\tStatus\t\tOpponentName\tRating\tGameIndex");
                 foreach (var item in allRatingCalculations)
                 {
                     currentRating += item.Rating;
-                    report.AppendLine($"{UserName}\t{currentRating}\t\t{item.Status}\t{item.OpponentName}\t{item.Rating}");
+                    gameIndex += item.GameIndex;
+                    report.AppendLine($"{UserName}\t{currentRating}\t\t{item.Status}\t{item.OpponentName}\t{item.Rating}\t{gameIndex}");
                 }
                 return report.ToString();
             }
@@ -77,7 +93,7 @@ namespace GameAccount
             {
                 UserName = userName;
                 GamesCount = 0;
-                GameStart(0, "Game start");
+                GameStart(0, "Game start", 0);
             }
 
             private List<RatingCalculation> allRatingCalculations = new List<RatingCalculation>();
@@ -89,12 +105,14 @@ namespace GameAccount
             public int Rating { get; }
             public string Status { get; }
             public string OpponentName { get; }
+            public int GameIndex { get; }
 
-            public RatingCalculation(int rating, string status, string opponentName)
+            public RatingCalculation(int rating, string status, string opponentName, int gameIndex)
             {
                 Rating = rating;
                 Status = status;
                 OpponentName = opponentName;
+                GameIndex = gameIndex;
             }
         }
 
