@@ -39,5 +39,19 @@
                 CurrentRating = 0;
             }
         }
+
+        public class RatingCalculation
+        {
+            public int Rating { get; }
+            public string Status { get; }
+            public string OpponentName { get; }
+
+            public RatingCalculation(int rating, string status, string opponentName)
+            {
+                Rating = rating;
+                Status = status;
+                OpponentName = opponentName;
+            }
+        }
     }
 }
