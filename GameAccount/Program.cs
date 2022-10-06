@@ -18,7 +18,7 @@ namespace GameAccount
             {
                 get
                 {
-                    int currentRating = 0;
+                    int currentRating = 100;
                     foreach (var item in allRatingCalculations)
                     {
                         currentRating += item.Rating;
@@ -41,13 +41,22 @@ namespace GameAccount
 
             public void LoseGame(string opponentName, int rating)
             {
-                var loseGame = new RatingCalculation(rating, "win game", opponentName);
+                var loseGame = new RatingCalculation(-rating, "lose game", opponentName);
                 allRatingCalculations.Add(loseGame); 
             }
 
-            public void GetStats()
+            public string GetStats()
             {
-                
+                var report = new System.Text.StringBuilder();
+
+                int rating = 100;
+                report.AppendLine("CurrentRating\tRating\tOpponent\tStatus");
+                foreach (var item in allRatingCalculations)
+                {
+                    rating += item.Rating;
+                    report.AppendLine($"{rating}\t\t{item.Rating}\t{item.OpponentName}\t\t{item.Status}");
+                }
+                return report.ToString();
             }
 
             public GameAccount(string userName)
