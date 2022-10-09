@@ -9,12 +9,12 @@ namespace GameAccount
         {
             var userOne = new GameAccount("Riezienkov");
             var userTwo = new GameAccount("Nizhenets");
-            var gameOne = new Game(userOne, userTwo, 10);
-            gameOne.PlayGame();
-            gameOne.PlayGame();
-            gameOne.PlayGame();
-            gameOne.PlayGame();
-            gameOne.PlayGame();
+            var userOneVsUserTwo = new Game(userOne, userTwo, 10);
+            userOneVsUserTwo.PlayGame();
+            userOneVsUserTwo.PlayGame();
+            userOneVsUserTwo.PlayGame();
+            userOneVsUserTwo.PlayGame();
+            userOneVsUserTwo.PlayGame();
             Console.WriteLine(userOne.GetStats());
             Console.WriteLine(userTwo.GetStats());
         }
@@ -120,6 +120,8 @@ namespace GameAccount
         {
             public readonly GameAccount UserOne;
             public readonly GameAccount UserTwo;
+
+            public int RandomChoice { get; set; }
             public int Rating { get; }
 
             public Game(GameAccount userOne, GameAccount userTwo, int rating)
@@ -136,8 +138,8 @@ namespace GameAccount
             public void PlayGame()
             {
                 var rnd = new Random();
-                int randomChoice = rnd.Next(0, 101);
-                if (randomChoice <= 50)
+                RandomChoice = rnd.Next(0, 101);
+                if (RandomChoice <= 50)
                 {
                     UserOne.WinGame(UserTwo.UserName, Rating);
                     UserTwo.LoseGame(UserOne.UserName, Rating);
