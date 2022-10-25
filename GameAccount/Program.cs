@@ -16,6 +16,12 @@ namespace GameAccount
             userOneVsUserTwo.PlayGame();
             Console.WriteLine(userOne.GetStats());
             Console.WriteLine(userTwo.GetStats());
+            var userThree = new GameAccount("Lomachenko"); 
+            var userOneVsUserThree = new Game(userOne, userThree, 10);
+            userOneVsUserThree.PlayGame();
+            userOneVsUserThree.PlayGame();
+            Console.WriteLine(userOne.GetStats());
+            Console.WriteLine(userThree.GetStats());
         }
     }
 }

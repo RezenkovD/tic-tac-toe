@@ -8,20 +8,6 @@ namespace GameAccount
             public string UserName { get; }
             public int GamesCount { get; }
 
-            public int GameIndex
-            {
-                get
-                {
-                    int gameIndex = 0;
-                    foreach (var item in allRatingCalculations)
-                    {
-                        gameIndex += item.GameIndex;
-                    }
-
-                    return gameIndex;
-                }
-            }
-
             public int CurrentRating
             {
                 get
