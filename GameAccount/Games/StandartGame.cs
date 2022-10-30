@@ -2,7 +2,7 @@ using System;
 
 namespace GameAccount
 {
-    public class Game
+    public class StandartGame
     {
         public readonly BaseGameAccount UserOne;
         public readonly BaseGameAccount UserTwo;
@@ -10,7 +10,7 @@ namespace GameAccount
         public int RandomChoice { get; set; }
         public int Rating { get; }
 
-        public Game(BaseGameAccount userOne, BaseGameAccount userTwo, int rating)
+        public StandartGame(BaseGameAccount userOne, BaseGameAccount userTwo, int rating)
         {
             if (rating <= 0)
             {
