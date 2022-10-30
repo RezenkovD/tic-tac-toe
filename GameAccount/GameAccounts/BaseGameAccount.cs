@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace GameAccount
 {
-    public class GameAccount
+    public class BaseGameAccount
         {
             public string UserName { get; }
             public int GamesCount { get; }
 
-            public int CurrentRating
+            public virtual int CurrentRating
             {
                 get
                 {
@@ -27,13 +27,13 @@ namespace GameAccount
                 allRatingCalculations.Add(startGame);
             }
 
-            public void WinGame(string opponentName, int rating)
+            public virtual void WinGame(string opponentName, int rating)
             {
                 var winGame = new RatingCalculation(rating, "Game won", opponentName, 1);
                 allRatingCalculations.Add(winGame);
             }
 
-            public void LoseGame(string opponentName, int rating)
+            public virtual void LoseGame(string opponentName, int rating)
             {
                 if (CurrentRating - rating < 1)
                 {
@@ -43,7 +43,7 @@ namespace GameAccount
                 allRatingCalculations.Add(loseGame);
             }
 
-            public string GetStats()
+            public virtual string GetStats()
             {
                 var report = new System.Text.StringBuilder();
 
@@ -59,14 +59,13 @@ namespace GameAccount
                 return report.ToString();
             }
 
-            public GameAccount(string userName)
+            public BaseGameAccount(string userName)
             {
                 UserName = userName;
                 GamesCount = 0;
                 GameStart(0, "Game start", 0);
             }
 
-            private List<RatingCalculation> allRatingCalculations = new List<RatingCalculation>();
-
+            protected List<RatingCalculation> allRatingCalculations = new List<RatingCalculation>();
         }
 }
