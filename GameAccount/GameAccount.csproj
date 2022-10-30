@@ -40,7 +40,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Game.cs" />
-        <Compile Include="GameAccount.cs" />
+        <Compile Include="GameAccounts\BaseGameAccount.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="RatingCalculation.cs" />

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GameAccount
 {
-    public class GameAccount
+    public class BaseGameAccount
         {
             public string UserName { get; }
             public int GamesCount { get; }
@@ -59,7 +59,7 @@ namespace GameAccount
                 return report.ToString();
             }
 
-            public GameAccount(string userName)
+            public BaseGameAccount(string userName)
             {
                 UserName = userName;
                 GamesCount = 0;

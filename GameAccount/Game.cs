@@ -4,13 +4,13 @@ namespace GameAccount
 {
     public class Game
     {
-        public readonly GameAccount UserOne;
-        public readonly GameAccount UserTwo;
+        public readonly BaseGameAccount UserOne;
+        public readonly BaseGameAccount UserTwo;
 
         public int RandomChoice { get; set; }
         public int Rating { get; }
 
-        public Game(GameAccount userOne, GameAccount userTwo, int rating)
+        public Game(BaseGameAccount userOne, BaseGameAccount userTwo, int rating)
         {
             if (rating <= 0)
             {
