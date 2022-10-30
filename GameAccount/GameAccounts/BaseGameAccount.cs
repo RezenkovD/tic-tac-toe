@@ -27,13 +27,13 @@ namespace GameAccount
                 allRatingCalculations.Add(startGame);
             }
 
-            public void WinGame(string opponentName, int rating)
+            public virtual void WinGame(string opponentName, int rating)
             {
                 var winGame = new RatingCalculation(rating, "Game won", opponentName, 1);
                 allRatingCalculations.Add(winGame);
             }
 
-            public void LoseGame(string opponentName, int rating)
+            public virtual void LoseGame(string opponentName, int rating)
             {
                 if (CurrentRating - rating < 1)
                 {
@@ -66,7 +66,6 @@ namespace GameAccount
                 GameStart(0, "Game start", 0);
             }
 
-            private List<RatingCalculation> allRatingCalculations = new List<RatingCalculation>();
-
+            protected List<RatingCalculation> allRatingCalculations = new List<RatingCalculation>();
         }
 }
