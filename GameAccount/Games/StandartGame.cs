@@ -2,26 +2,22 @@ using System;
 
 namespace GameAccount
 {
-    public class Game
+    public class StandartGame: BaseGame
     {
-        public readonly BaseGameAccount UserOne;
-        public readonly BaseGameAccount UserTwo;
 
         public int RandomChoice { get; set; }
         public int Rating { get; }
-
-        public Game(BaseGameAccount userOne, BaseGameAccount userTwo, int rating)
+        
+        public StandartGame(BaseGameAccount userOne, BaseGameAccount userTwo, int rating) : base(userOne, userTwo)
         {
             if (rating <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(rating), "The rating for which they are playing cannot be negative");
             }
-            UserOne = userOne;
-            UserTwo = userTwo;
-            Rating = rating;
+            Rating = rating; 
         }
 
-        public void PlayGame()
+        public override void PlayGame()
         {
             var rnd = new Random();
             RandomChoice = rnd.Next(0, 101);
