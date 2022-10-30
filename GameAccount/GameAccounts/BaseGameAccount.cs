@@ -8,7 +8,7 @@ namespace GameAccount
             public string UserName { get; }
             public int GamesCount { get; }
 
-            public int CurrentRating
+            public virtual int CurrentRating
             {
                 get
                 {
@@ -43,7 +43,7 @@ namespace GameAccount
                 allRatingCalculations.Add(loseGame);
             }
 
-            public string GetStats()
+            public virtual string GetStats()
             {
                 var report = new System.Text.StringBuilder();
 

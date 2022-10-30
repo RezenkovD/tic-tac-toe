@@ -41,6 +41,7 @@
     <ItemGroup>
         <Compile Include="Game.cs" />
         <Compile Include="GameAccounts\BaseGameAccount.cs" />
+        <Compile Include="GameAccounts\ComboGameAccount.cs" />
         <Compile Include="GameAccounts\SuperGameAccount.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
