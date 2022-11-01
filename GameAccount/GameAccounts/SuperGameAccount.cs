@@ -8,19 +8,19 @@ namespace GameAccount
         {
         }
 
-        public override void WinGame(string opponentName, int rating)
+        public override void WinGame(string opponentName,BaseGame baseGame)
         {
-            var winGame = new RatingCalculation(2*rating, "Game won", opponentName, 1);
+            var winGame = new RatingCalculation(2*baseGame.Rating, "Game won", opponentName, 1);
             allRatingCalculations.Add(winGame);
         }
         
-        public override void LoseGame(string opponentName, int rating)
+        public override void LoseGame(string opponentName, BaseGame baseGame)
         {
-            if (CurrentRating - rating < 1)
+            if (CurrentRating - baseGame.Rating < 1)
             {
                 throw new InvalidOperationException("The rating cannot be less than 1");
             }
-            var loseGame = new RatingCalculation(-rating/2, "Game lost", opponentName, 1);
+            var loseGame = new RatingCalculation(-baseGame.Rating/2, "Game lost", opponentName, 1);
             allRatingCalculations.Add(loseGame);
         }
     }

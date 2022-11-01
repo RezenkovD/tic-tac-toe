@@ -6,15 +6,12 @@ namespace GameAccount
     {
 
         public int RandomChoice { get; set; }
-        public int Rating { get; }
-        
-        public StandartGame(BaseGameAccount userOne, BaseGameAccount userTwo, int rating) : base(userOne, userTwo)
+        public StandartGame(BaseGameAccount userOne, BaseGameAccount userTwo, int rating) : base(userOne, userTwo, rating)
         {
             if (rating <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(rating), "The rating for which they are playing cannot be negative");
             }
-            Rating = rating; 
         }
 
         public override void PlayGame()
@@ -23,13 +20,13 @@ namespace GameAccount
             RandomChoice = rnd.Next(0, 101);
             if (RandomChoice <= 50)
             {
-                UserOne.WinGame(UserTwo.UserName, Rating);
-                UserTwo.LoseGame(UserOne.UserName, Rating);
+                UserOne.WinGame(UserTwo.UserName, this);
+                UserTwo.LoseGame(UserOne.UserName, this);
             }
             else
             {
-                UserTwo.WinGame(UserOne.UserName, Rating);
-                UserOne.LoseGame(UserTwo.UserName, Rating);
+                UserTwo.WinGame(UserOne.UserName, this);
+                UserOne.LoseGame(UserTwo.UserName, this);
             }
         }
     }

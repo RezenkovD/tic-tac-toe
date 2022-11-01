@@ -26,20 +26,18 @@ namespace GameAccount
                 var startGame = new RatingCalculation(rating, status, "Game start", gameIndex);
                 allRatingCalculations.Add(startGame);
             }
-
-            public virtual void WinGame(string opponentName, int rating)
+            public virtual void WinGame(string opponentName, BaseGame baseGame)
             {
-                var winGame = new RatingCalculation(rating, "Game won", opponentName, 1);
+                var winGame = new RatingCalculation(baseGame.Rating, "Game won", opponentName, 1);
                 allRatingCalculations.Add(winGame);
             }
-
-            public virtual void LoseGame(string opponentName, int rating)
+            public virtual void LoseGame(string opponentName, BaseGame baseGame)
             {
-                if (CurrentRating - rating < 1)
+                if (CurrentRating - baseGame.Rating < 1)
                 {
                     throw new InvalidOperationException("The rating cannot be less than 1");
                 }
-                var loseGame = new RatingCalculation(-rating, "Game lost", opponentName, 1);
+                var loseGame = new RatingCalculation(-baseGame.Rating, "Game lost", opponentName, 1);
                 allRatingCalculations.Add(loseGame);
             }
 
