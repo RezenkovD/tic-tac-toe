@@ -12,7 +12,7 @@ namespace GameAccount
             {
                 int currentRating = 100;
                 int combo_won = 0;
-                foreach (var item in allRatingCalculations)
+                foreach (var item in allCalculations)
                 {
                     if (item.Status == "Game won")
                     {
@@ -35,8 +35,8 @@ namespace GameAccount
             int combo_won = 0;
             int currentRating = 100;
             int gameIndex = 0;
-            report.AppendLine("UserName\tCurrentRating\tStatus\t\tOpponentName\tRating\tGameIndex");
-            foreach (var item in allRatingCalculations)
+            report.AppendLine("UserName\tCurrentRating\tStatus\t\tOpponentName\tRating\tGameIndex\tTypeGame");
+            foreach (var item in allCalculations)
             {
                 if (item.Status == "Game won")
                 {
@@ -49,7 +49,7 @@ namespace GameAccount
                 }
                 currentRating += item.Rating;
                 gameIndex += item.GameIndex;
-                report.AppendLine($"{UserName}\t{currentRating}\t\t{item.Status}\t{item.OpponentName}\t{item.Rating}\t{gameIndex}");
+                report.AppendLine($"{UserName}\t{currentRating}\t\t{item.Status}\t{item.OpponentName}\t{item.Rating}\t{gameIndex}\t\t{item.TypeGame}");
             }
             return report.ToString();
         }

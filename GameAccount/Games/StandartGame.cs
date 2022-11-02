@@ -20,13 +20,13 @@ namespace GameAccount
             RandomChoice = rnd.Next(0, 101);
             if (RandomChoice <= 50)
             {
-                UserOne.WinGame(UserTwo.UserName, this);
-                UserTwo.LoseGame(UserOne.UserName, this);
+                UserOne.WinGame(UserTwo.UserName, this, this.ToString());
+                UserTwo.LoseGame(UserOne.UserName, this, this.ToString());
             }
             else
             {
-                UserTwo.WinGame(UserOne.UserName, this);
-                UserOne.LoseGame(UserTwo.UserName, this);
+                UserTwo.WinGame(UserOne.UserName, this, this.ToString());
+                UserOne.LoseGame(UserTwo.UserName, this, this.ToString());
             }
         }
     }

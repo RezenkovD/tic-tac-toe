@@ -13,7 +13,7 @@ namespace GameAccount
                 get
                 {
                     int currentRating = 100;
-                    foreach (var item in allRatingCalculations)
+                    foreach (var item in allCalculations)
                     {
                         currentRating += item.Rating;
                     }
@@ -23,22 +23,22 @@ namespace GameAccount
 
             public void GameStart(int rating, string status, int gameIndex)
             {
-                var startGame = new RatingCalculation(rating, status, "Game start", gameIndex);
-                allRatingCalculations.Add(startGame);
+                var startGame = new StatCalculation(rating, status, "Game start", gameIndex, "Start Game");
+                allCalculations.Add(startGame);
             }
-            public virtual void WinGame(string opponentName, BaseGame baseGame)
+            public virtual void WinGame(string opponentName, BaseGame baseGame, string typeGame)
             {
-                var winGame = new RatingCalculation(baseGame.Rating, "Game won", opponentName, 1);
-                allRatingCalculations.Add(winGame);
+                var winGame = new StatCalculation(baseGame.Rating, "Game won", opponentName, 1, typeGame);
+                allCalculations.Add(winGame);
             }
-            public virtual void LoseGame(string opponentName, BaseGame baseGame)
+            public virtual void LoseGame(string opponentName, BaseGame baseGame, string typeGame)
             {
                 if (CurrentRating - baseGame.Rating < 1)
                 {
                     throw new InvalidOperationException("The rating cannot be less than 1");
                 }
-                var loseGame = new RatingCalculation(-baseGame.Rating, "Game lost", opponentName, 1);
-                allRatingCalculations.Add(loseGame);
+                var loseGame = new StatCalculation(-baseGame.Rating, "Game lost", opponentName, 1, typeGame);
+                allCalculations.Add(loseGame);
             }
 
             public virtual string GetStats()
@@ -47,12 +47,12 @@ namespace GameAccount
 
                 int currentRating = 100;
                 int gameIndex = 0;
-                report.AppendLine("UserName\tCurrentRating\tStatus\t\tOpponentName\tRating\tGameIndex");
-                foreach (var item in allRatingCalculations)
+                report.AppendLine("UserName\tCurrentRating\tStatus\t\tOpponentName\tRating\tGameIndex\tTypeGame");
+                foreach (var item in allCalculations)
                 {
                     currentRating += item.Rating;
                     gameIndex += item.GameIndex;
-                    report.AppendLine($"{UserName}\t{currentRating}\t\t{item.Status}\t{item.OpponentName}\t{item.Rating}\t{gameIndex}");
+                    report.AppendLine($"{UserName}\t{currentRating}\t\t{item.Status}\t{item.OpponentName}\t{item.Rating}\t{gameIndex}\t\t{item.TypeGame}");
                 }
                 return report.ToString();
             }
@@ -64,6 +64,6 @@ namespace GameAccount
                 GameStart(0, "Game start", 0);
             }
 
-            protected List<RatingCalculation> allRatingCalculations = new List<RatingCalculation>();
+            protected List<StatCalculation> allCalculations = new List<StatCalculation>();
         }
 }
