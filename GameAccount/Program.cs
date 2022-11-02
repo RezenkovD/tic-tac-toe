@@ -10,9 +10,9 @@ namespace GameAccount
             var Nizhynets = new SuperGameAccount("Nizhynets");
             var Lomachenko = new ComboGameAccount("Lomachenko");
             
-            var RiezienkovVsLomachenko = new StandartGame(Riezienkov, Lomachenko, 20);
-            var NizhynetsVsRiezienkov = new TraineGame(Nizhynets, Riezienkov);
-            var LomachenkoVsNizhynets = new StandartGame(Nizhynets, Lomachenko, 10);
+            var RiezienkovVsLomachenko = GameFactory.GetStandartGame(Riezienkov, Lomachenko, 20);
+            var NizhynetsVsRiezienkov = GameFactory.GetTrainetGame(Nizhynets, Riezienkov);
+            var LomachenkoVsNizhynets = GameFactory.GetStandartGame(Nizhynets, Lomachenko, 10);
             
             RiezienkovVsLomachenko.PlayGame();
             RiezienkovVsLomachenko.PlayGame();

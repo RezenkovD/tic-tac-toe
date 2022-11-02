@@ -43,6 +43,7 @@
         <Compile Include="GameAccounts\ComboGameAccount.cs" />
         <Compile Include="GameAccounts\SuperGameAccount.cs" />
         <Compile Include="Games\BaseGame.cs" />
+        <Compile Include="Games\GameFactory.cs" />
         <Compile Include="Games\StandartGame.cs" />
         <Compile Include="Games\TraineGame.cs" />
         <Compile Include="Program.cs" />
