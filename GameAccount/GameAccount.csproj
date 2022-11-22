@@ -39,18 +39,18 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="CustomException.cs" />
         <Compile Include="GameAccounts\BaseGameAccount.cs" />
         <Compile Include="GameAccounts\ComboGameAccount.cs" />
         <Compile Include="GameAccounts\SuperGameAccount.cs" />
         <Compile Include="Games\BaseGame.cs" />
-        <Compile Include="Games\GameFactory.cs" />
         <Compile Include="Games\StandartGame.cs" />
         <Compile Include="Games\TicTacToeGame.cs" />
         <Compile Include="Games\TraineGame.cs" />
+        <Compile Include="Ohters\CustomException.cs" />
+        <Compile Include="Ohters\GameFactory.cs" />
+        <Compile Include="Ohters\StatCalculation.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="StatCalculation.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
