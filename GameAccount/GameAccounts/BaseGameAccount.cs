@@ -31,6 +31,11 @@ namespace GameAccount
                 var winGame = new StatCalculation(baseGame.Rating, "Game won", opponentName, 1, typeGame);
                 allCalculations.Add(winGame);
             }
+            public virtual void DrawGame(string opponentName, BaseGame baseGame, string typeGame)
+            {
+                var drawGame = new StatCalculation(0, "Draw game", opponentName, 1, typeGame);
+                allCalculations.Add(drawGame);
+            }
             public virtual void LoseGame(string opponentName, BaseGame baseGame, string typeGame)
             {
                 if (CurrentRating - baseGame.Rating < 1)
