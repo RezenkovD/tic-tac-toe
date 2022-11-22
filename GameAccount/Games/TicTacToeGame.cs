@@ -17,9 +17,7 @@ namespace GameAccount
         {
             string[,] TicTacToe = { { "-", "-", "-" }, { "-", "-", "-" }, { "-", "-", "-" } }; 
             GetArray(TicTacToe);
-            int i = 0;
-            bool winner = false;
-            while (!winner)
+            for (int i = 0; i < TicTacToe.Length; i++)
             {
                 if (i % 2 == 0)
                 {
@@ -37,11 +35,12 @@ namespace GameAccount
                                 TicTacToe[ChoiceXUserOne, ChoiceYUserOne] = "X";
                                 if (CheckTicTacToe(TicTacToe))
                                 {
+                                    GetArray(TicTacToe);
                                     Console.ForegroundColor = ConsoleColor.Green; 
-                                    Console.WriteLine("Congratulations, {0}", UserOne.UserName);
+                                    Console.WriteLine("Congratulations, {0}\n", UserOne.UserName);
                                     UserOne.WinGame(UserTwo.UserName, this, this.ToString());
                                     UserTwo.LoseGame(UserOne.UserName, this, this.ToString());
-                                    winner = true;
+                                    return;
                                 }
                             }
                             else
@@ -80,11 +79,12 @@ namespace GameAccount
                                 TicTacToe[ChoiceXUserTwo, ChoiceYUserTwo] = "O";
                                 if (CheckTicTacToe(TicTacToe))
                                 {
+                                    GetArray(TicTacToe);
                                     Console.ForegroundColor = ConsoleColor.Green; 
                                     Console.WriteLine("Congratulations, {0}\n", UserTwo.UserName);
                                     UserTwo.WinGame(UserOne.UserName, this, this.ToString());
                                     UserOne.LoseGame(UserTwo.UserName, this, this.ToString());
-                                    winner = true;
+                                    return;
                                 }
                             }
                             else
@@ -107,9 +107,12 @@ namespace GameAccount
                         }
                     }
                 }
-                i++;
                 GetArray(TicTacToe);
             }
+            Console.ForegroundColor = ConsoleColor.Gray; 
+            Console.WriteLine("Draw Game!");
+            UserOne.DrawGame(UserTwo.UserName, this, this.ToString());
+            UserTwo.DrawGame(UserOne.UserName, this, this.ToString());
         }
 
         public static void GetArray(string[,] TicTacToe)
