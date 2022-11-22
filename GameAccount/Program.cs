@@ -24,11 +24,16 @@ namespace GameAccount
             LomachenkoVsNizhynets.PlayGame();
             LomachenkoVsNizhynets.PlayGame();
             LomachenkoVsNizhynets.PlayGame();
-
+            
             Console.WriteLine(Riezienkov.GetStats());
             Console.WriteLine(Nizhynets.GetStats());
             Console.WriteLine(Lomachenko.GetStats());
             
+            var NizhynetsVsLomachenko = GameFactory.GetTicTacToe(Nizhynets, Lomachenko, 20);
+            NizhynetsVsLomachenko.PlayGame();
+            
+            Console.WriteLine(Nizhynets.GetStats());
+            Console.WriteLine(Lomachenko.GetStats());
         }
     }
 }
