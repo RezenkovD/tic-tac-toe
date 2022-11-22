@@ -11,5 +11,10 @@ namespace GameAccount
         {
             return new TraineGame(userOne, userTwo);
         }
+
+        public static BaseGame GetTicTacToe(BaseGameAccount userOne, BaseGameAccount userTwo, int rating)
+        {
+            return new TicTacToe(userOne, userTwo, rating);
+        }
     }
 }
