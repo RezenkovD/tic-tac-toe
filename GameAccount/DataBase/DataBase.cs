@@ -31,5 +31,22 @@ namespace GameAccount.DataBase
             cmd.Parameters.AddWithValue("tG", typeGame);
             await cmd.ExecuteNonQueryAsync();
         }
+
+        public async Task ReadDataBase()
+        {
+            using var command = new NpgsqlCommand("SELECT * FROM gamestats", await connection);
+            await using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                Console.Write(reader.GetString(0) + "\t");
+                Console.Write(reader.GetInt32(1) + "\t\t");
+                Console.Write(reader.GetString(2) + "\t");
+                Console.Write(reader.GetString(3) + "\t");
+                Console.Write(reader.GetInt32(4) + "\t\t");
+                Console.Write(reader.GetInt32(5) + "\t\t");
+                Console.Write(reader.GetString(6) + "\t");
+                Console.WriteLine();
+            }
+        }
     }
 }
