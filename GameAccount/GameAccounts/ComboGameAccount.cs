@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace GameAccount
 {
     public class ComboGameAccount: BaseGameAccount
@@ -29,13 +31,11 @@ namespace GameAccount
             }
         }
 
-        public override string GetStats()
+        public override async Task WriteStats()
         {
-            var report = new System.Text.StringBuilder();
             int combo_won = 0;
             int currentRating = 100;
             int gameIndex = 0;
-            report.AppendLine("UserName\tCurrentRating\tStatus\t\tOpponentName\tRating\tGameIndex\tTypeGame");
             foreach (var item in allCalculations)
             {
                 if (item.Status == "Game won")
@@ -49,9 +49,10 @@ namespace GameAccount
                 }
                 currentRating += item.Rating;
                 gameIndex += item.GameIndex;
-                report.AppendLine($"{UserName}\t{currentRating}\t\t{item.Status}\t{item.OpponentName}\t{item.Rating}\t{gameIndex}\t\t{item.TypeGame}");
+                var dataBase = new DataBase.DataBase();
+                await dataBase.CreateDataBase(UserName, currentRating, item.Status, item.OpponentName, item.Rating,
+                    gameIndex, item.TypeGame);
             }
-            return report.ToString();
         }
     }
 }

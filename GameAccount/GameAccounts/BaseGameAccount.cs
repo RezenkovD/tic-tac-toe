@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GameAccount
 {
@@ -7,7 +8,6 @@ namespace GameAccount
         {
             public string UserName { get; }
             public int GamesCount { get; }
-
             public virtual int CurrentRating
             {
                 get
@@ -46,20 +46,18 @@ namespace GameAccount
                 allCalculations.Add(loseGame);
             }
 
-            public virtual string GetStats()
+            public virtual async Task WriteStats()
             {
-                var report = new System.Text.StringBuilder();
-
                 int currentRating = 100;
                 int gameIndex = 0;
-                report.AppendLine("UserName\tCurrentRating\tStatus\t\tOpponentName\tRating\tGameIndex\tTypeGame");
                 foreach (var item in allCalculations)
                 {
                     currentRating += item.Rating;
                     gameIndex += item.GameIndex;
-                    report.AppendLine($"{UserName}\t{currentRating}\t\t{item.Status}\t{item.OpponentName}\t{item.Rating}\t{gameIndex}\t\t{item.TypeGame}");
+                    var dataBase = new DataBase.DataBase();
+                    await dataBase.CreateDataBase(UserName, currentRating, item.Status, item.OpponentName, item.Rating,
+                        gameIndex, item.TypeGame);
                 }
-                return report.ToString();
             }
 
             public BaseGameAccount(string userName)
