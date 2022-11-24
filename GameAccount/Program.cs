@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Npgsql;
 
 namespace GameAccount
 {
@@ -19,8 +18,8 @@ namespace GameAccount
             NizhynetsVsRiezienkov.PlayGame();
             LomachenkoVsNizhynets.PlayGame();
             
-            // var NizhynetsVsLomachenko = GameFactory.GetTicTacToe(Nizhynets, Lomachenko, 20);
-            // NizhynetsVsLomachenko.PlayGame();
+            var NizhynetsVsLomachenko = GameFactory.GetTicTacToe(Nizhynets, Lomachenko, 20);
+            NizhynetsVsLomachenko.PlayGame();
             
             await Riezienkov.WriteStats();
             await Nizhynets.WriteStats();
