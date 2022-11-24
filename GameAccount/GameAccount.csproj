@@ -87,6 +87,7 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="DataBase\DataBase.cs" />
         <Compile Include="GameAccounts\BaseGameAccount.cs" />
         <Compile Include="GameAccounts\ComboGameAccount.cs" />
         <Compile Include="GameAccounts\SuperGameAccount.cs" />

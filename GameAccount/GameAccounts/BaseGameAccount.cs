@@ -54,7 +54,7 @@ namespace GameAccount
                 {
                     currentRating += item.Rating;
                     gameIndex += item.GameIndex;
-                    var dataBase = new DataBase();
+                    var dataBase = new DataBase.DataBase();
                     await dataBase.CreateDataBase(UserName, currentRating, item.Status, item.OpponentName, item.Rating,
                         gameIndex, item.TypeGame);
                 }
