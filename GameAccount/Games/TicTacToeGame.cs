@@ -55,11 +55,11 @@ namespace GameAccount
                         }
                         catch (FormatException)
                         {
-                            Console.WriteLine("\tEnter a number.\n\tThe game has been restarted!");
+                            Console.WriteLine("\tEnter a number.\n\tTry again!");
                         }
                         catch (IndexOutOfRangeException)
                         {
-                            Console.WriteLine("\tUse only: 0, 1, 2.\n\tThe game has been restarted!");
+                            Console.WriteLine("\tUse only: 0, 1, 2.\n\tTry again!");
                         }
                     }
                 }
