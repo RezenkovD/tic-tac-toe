@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Npgsql;
 
 namespace GameAccount
 {
@@ -9,9 +8,6 @@ namespace GameAccount
         {
             public string UserName { get; }
             public int GamesCount { get; }
-            protected string NameDataBase = Environment.GetEnvironmentVariable("NameDataBase");
-            protected string PasswordDataBase = Environment.GetEnvironmentVariable("PasswordDataBase");
-            protected string UsernameDB = Environment.GetEnvironmentVariable("UsernameDB");
             public virtual int CurrentRating
             {
                 get
@@ -52,27 +48,15 @@ namespace GameAccount
 
             public virtual async Task WriteStats()
             {
-                var connectionString = $"Host=localhost;Username={UsernameDB};Password={PasswordDataBase};Database={NameDataBase}";
-                await using var dataSource = NpgsqlDataSource.Create(connectionString); 
-                await using var connection = await dataSource.OpenConnectionAsync(); 
-                const string TABLE_NAME = "gamestats";
                 int currentRating = 100;
                 int gameIndex = 0;
                 foreach (var item in allCalculations)
                 {
                     currentRating += item.Rating;
                     gameIndex += item.GameIndex;
-                    
-                    string commandText = $"INSERT INTO {TABLE_NAME} (UserName, CurrentRating, Status, OpponentName, Rating, GameIndex, TypeGame) VALUES (@uN, @cR, @s, @oN, @r, @gI, @tG)";
-                    using var cmd = new NpgsqlCommand(commandText, connection);
-                    cmd.Parameters.AddWithValue("uN", UserName);
-                    cmd.Parameters.AddWithValue("cR", currentRating);
-                    cmd.Parameters.AddWithValue("s", item.Status);
-                    cmd.Parameters.AddWithValue("oN", item.OpponentName);
-                    cmd.Parameters.AddWithValue("r", item.Rating);
-                    cmd.Parameters.AddWithValue("gI", gameIndex);
-                    cmd.Parameters.AddWithValue("tG", item.TypeGame);
-                    await cmd.ExecuteNonQueryAsync();
+                    var dataBase = new DataBase();
+                    await dataBase.CreateDataBase(UserName, currentRating, item.Status, item.OpponentName, item.Rating,
+                        gameIndex, item.TypeGame);
                 }
             }
 
