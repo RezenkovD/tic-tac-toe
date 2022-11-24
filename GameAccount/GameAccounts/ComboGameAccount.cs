@@ -1,3 +1,6 @@
+using System.Threading.Tasks;
+using Npgsql;
+
 namespace GameAccount
 {
     public class ComboGameAccount: BaseGameAccount
@@ -29,13 +32,16 @@ namespace GameAccount
             }
         }
 
-        public override string GetStats()
+        public override async Task WriteStats()
         {
-            var report = new System.Text.StringBuilder();
+
+            var connectionString = $"Host=localhost;Username={UsernameDB};Password={PasswordDataBase};Database={NameDataBase}";
+            await using var dataSource = NpgsqlDataSource.Create(connectionString); 
+            await using var connection = await dataSource.OpenConnectionAsync(); 
+            const string TABLE_NAME = "gamestats";
             int combo_won = 0;
             int currentRating = 100;
             int gameIndex = 0;
-            report.AppendLine("UserName\tCurrentRating\tStatus\t\tOpponentName\tRating\tGameIndex\tTypeGame");
             foreach (var item in allCalculations)
             {
                 if (item.Status == "Game won")
@@ -49,9 +55,18 @@ namespace GameAccount
                 }
                 currentRating += item.Rating;
                 gameIndex += item.GameIndex;
-                report.AppendLine($"{UserName}\t{currentRating}\t\t{item.Status}\t{item.OpponentName}\t{item.Rating}\t{gameIndex}\t\t{item.TypeGame}");
+                
+                string commandText = $"INSERT INTO {TABLE_NAME} (UserName, CurrentRating, Status, OpponentName, Rating, GameIndex, TypeGame) VALUES (@uN, @cR, @s, @oN, @r, @gI, @tG)";
+                using var cmd = new NpgsqlCommand(commandText, connection);
+                cmd.Parameters.AddWithValue("uN", UserName);
+                cmd.Parameters.AddWithValue("cR", currentRating);
+                cmd.Parameters.AddWithValue("s", item.Status);
+                cmd.Parameters.AddWithValue("oN", item.OpponentName);
+                cmd.Parameters.AddWithValue("r", item.Rating);
+                cmd.Parameters.AddWithValue("gI", gameIndex);
+                cmd.Parameters.AddWithValue("tG", item.TypeGame);
+                await cmd.ExecuteNonQueryAsync();
             }
-            return report.ToString();
         }
     }
 }
